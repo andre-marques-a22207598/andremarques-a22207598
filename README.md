@@ -1,2 +1,3 @@
-# andremarques-a22207598
-django
+André Marques
+a22207598  
+admin, admin
