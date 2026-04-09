@@ -9,6 +9,8 @@ from .models import (
     Tecnologia,
     Projeto
 )
+from .models import Tfc
+
 
 # Register your models here.
 @admin.register(Owner)
@@ -56,3 +58,19 @@ class ProjetoAdmin(admin.ModelAdmin):
     list_filter = ('destaque', 'data', 'unidade_curricular')
 
     filter_horizontal = ('tecnologias',)
+
+@admin.register(Tfc)
+class TfcAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'autores', 'ano', 'rating')
+    search_fields = ('titulo', 'autores', 'orientadores')
+    list_filter = ('ano', 'rating')
+
+    readonly_fields = ('imagem_preview',)
+
+    def imagem_preview(self, obj):
+        if obj.imagem:
+            return mark_safe(f'<img src="{obj.imagem}" width="100"/>')
+        return "Sem imagem"
+
+    imagem_preview.short_description = "Preview"
+
