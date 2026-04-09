@@ -59,6 +59,12 @@ class ProjetoAdmin(admin.ModelAdmin):
 
     filter_horizontal = ('tecnologias',)
 
+@admin.register(Tecnologia)
+class TecnologiaAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'tipo', 'nivel')
+    search_fields = ('nome', 'tipo')
+    list_filter = ('tipo', 'nivel')
+
 @admin.register(Tfc)
 class TfcAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'autores', 'ano', 'rating')
