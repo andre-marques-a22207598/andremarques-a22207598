@@ -12,7 +12,7 @@ class Owner(models.Model):
     cv = models.FileField(upload_to='cv/')
 
 
-class Universidade(models.Model):  # 👈 vem antes
+class Universidade(models.Model):
     nome = models.CharField(max_length=100)
 
 
