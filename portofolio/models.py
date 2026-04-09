@@ -1,9 +1,9 @@
 from django.db import models
 
-# Create your models here.
 
 class Owner(models.Model):
     nome = models.CharField(max_length=100)
+    titulo = models.CharField(max_length=100)
     bio = models.TextField()
     foto = models.ImageField(upload_to='perfil/')
     email = models.EmailField()
@@ -11,3 +11,63 @@ class Owner(models.Model):
     linkedin = models.URLField()
     cv = models.FileField(upload_to='cv/')
 
+
+class Universidade(models.Model):  # 👈 vem antes
+    nome = models.CharField(max_length=100)
+
+
+class Licenciatura(models.Model):
+    nome = models.CharField(max_length=100)
+    descricao = models.TextField()
+    duracao = models.IntegerField()
+    universidade = models.ForeignKey(Universidade, on_delete=models.CASCADE)
+
+
+class Formacao(models.Model):
+    titulo = models.CharField(max_length=100)
+    instituicao = models.CharField(max_length=100)
+    inicio = models.DateField()
+    fim = models.DateField()
+    descricao = models.TextField()
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+
+
+class Docente(models.Model):
+    nome = models.CharField(max_length=100)
+    pagina = models.URLField()
+
+
+class UnidadeCurricular(models.Model):
+    nome = models.CharField(max_length=100)
+    descricao = models.TextField()
+    ano = models.IntegerField()
+    semestre = models.IntegerField()
+    ects = models.IntegerField()
+    imagem = models.ImageField(upload_to='ucs/')
+    licenciatura = models.ForeignKey(Licenciatura, on_delete=models.CASCADE)
+
+    docentes = models.ManyToManyField(Docente,related_name='ucs')
+
+
+class Tecnologia(models.Model):
+    nome = models.CharField(max_length=100)
+    tipo = models.CharField(max_length=50)
+    descricao = models.TextField()
+    logo = models.ImageField(upload_to='tech/')
+    website = models.URLField()
+    nivel = models.IntegerField()
+
+
+class Projeto(models.Model):
+    titulo = models.CharField(max_length=100)
+    descricao = models.TextField()
+    conceitos = models.TextField()
+    imagem = models.ImageField(upload_to='projetos/')
+    video = models.URLField(blank=True)
+    github = models.URLField()
+    destaque = models.BooleanField(default=False)
+    data = models.DateField()
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    unidade_curricular = models.ForeignKey(UnidadeCurricular, on_delete=models.CASCADE)
+
+    tecnologias = models.ManyToManyField(Tecnologia)
