@@ -94,3 +94,24 @@ class Tfc(models.Model):
 
     def __str__(self):
         return self.titulo or "TFC sem título"
+
+
+class MakingOf(models.Model):
+    titulo = models.CharField(max_length=200, blank=True, null=True)
+
+    descricao_processo = models.TextField(blank=True, null=True)
+
+    decisoes = models.TextField(blank=True, null=True)
+
+    erros = models.TextField(blank=True, null=True)
+
+    correcoes = models.TextField(blank=True, null=True)
+
+    justificacao_modelacao = models.TextField(blank=True, null=True)
+
+    uso_ia = models.TextField(blank=True, null=True)
+
+    data = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.titulo or "Making Of"

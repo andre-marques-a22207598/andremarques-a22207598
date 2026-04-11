@@ -7,7 +7,8 @@ from .models import (
     Docente,
     UnidadeCurricular,
     Tecnologia,
-    Projeto
+    Projeto,
+    MakingOf
 )
 from .models import Tfc
 
@@ -80,3 +81,11 @@ class TfcAdmin(admin.ModelAdmin):
 
     imagem_preview.short_description = "Preview"
 
+@admin.register(MakingOf)
+class MakingOfAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'data')
+    search_fields = ('titulo', 'descricao_processo', 'decisoes')
+    list_filter = ('data',)
+
+    readonly_fields = ('data',)
+    
