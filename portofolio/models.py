@@ -115,3 +115,4 @@ class MakingOf(models.Model):
 
     def __str__(self):
         return self.titulo or "Making Of"
+
