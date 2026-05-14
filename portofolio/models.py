@@ -2,14 +2,14 @@ from django.db import models
 
 
 class Owner(models.Model):
-    nome = models.CharField(max_length=100)
-    titulo = models.CharField(max_length=100)
-    bio = models.TextField()
-    foto = models.ImageField(upload_to='perfil/')
-    email = models.EmailField()
-    github = models.URLField()
-    linkedin = models.URLField()
-    cv = models.FileField(upload_to='cv/')
+    nome = models.CharField(max_length=100, blank=True, null=True)
+    titulo = models.CharField(max_length=100, blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
+    foto = models.ImageField(upload_to='perfil/',blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    github = models.URLField(blank=True, null=True)
+    linkedin = models.URLField(blank=True, null=True)
+    cv = models.FileField(upload_to='cv/',blank=True, null=True)
 
 
 class Universidade(models.Model):
@@ -34,20 +34,24 @@ class Formacao(models.Model):
 
 class Docente(models.Model):
     nome = models.CharField(max_length=100)
-    pagina = models.URLField()
+    email = models.EmailField(null=True, blank=True)
+    pagina = models.URLField(null=True, blank=True)
+    codigo = models.IntegerField(unique=True, null=True, blank=True)
+    grau = models.CharField(max_length=100, null=True, blank=True)
+
 
 
 class UnidadeCurricular(models.Model):
+    codigo = models.IntegerField(unique=True)
     nome = models.CharField(max_length=100)
     descricao = models.TextField()
     ano = models.IntegerField()
-    semestre = models.IntegerField()
+    semestre = models.CharField(max_length=20)
     ects = models.IntegerField()
     imagem = models.ImageField(upload_to='ucs/')
-    licenciatura = models.ForeignKey(Licenciatura, on_delete=models.CASCADE)
-
+    objetivos = models.TextField(null=True, blank=True)
+    licenciatura = models.ForeignKey(Licenciatura, on_delete=models.CASCADE, null=True, blank=True)
     docentes = models.ManyToManyField(Docente,related_name='ucs')
-
 
 class Tecnologia(models.Model):
     nome = models.CharField(max_length=100)

@@ -1,0 +1,161 @@
+/* static/portofolio/style.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    color: #222;
+    padding: 40px;
+}
+
+h1 {
+    margin-bottom: 25px;
+    color: #111827;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #1f2937;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* 🔹 NAVBAR */
+
+.navbar {
+    background: #111827;
+    padding: 15px 25px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+.navbar ul {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.navbar a {
+    padding: 10px 14px;
+    background: #2563eb;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    background: #1d4ed8;
+}
+
+/* 🔹 CARDS */
+
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.card p {
+    margin: 8px 0;
+}
+
+/* 🔹 BOTÕES */
+
+.btn {
+    display: inline-block;
+    padding: 10px 16px;
+    background: #2563eb;
+    border-radius: 8px;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background: #1d4ed8;
+}
+
+.btn-danger {
+    background: #dc2626;
+}
+
+.btn-danger:hover {
+    background: #b91c1c;
+}
+
+.btn-secondary {
+    background: #6b7280;
+}
+
+.btn-secondary:hover {
+    background: #4b5563;
+}
+
+/* 🔹 IMAGENS */
+
+img {
+    max-width: 100%;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+
+/* 🔹 FORMULÁRIOS */
+
+form {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+form p {
+    margin-bottom: 15px;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+/* 🔹 GRID */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* 🔹 FOOTER */
+
+.footer {
+    margin-top: 50px;
+    text-align: center;
+    color: #6b7280;
+}

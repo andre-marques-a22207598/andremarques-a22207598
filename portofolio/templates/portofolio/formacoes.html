@@ -1,0 +1,29 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Formações</title>
+</head>
+<body>
+
+<h1>Formações</h1>
+
+{% for formacao in formacoes %}
+<div>
+    <h2>{{ formacao.titulo }}</h2>
+
+    <p>{{ formacao.instituicao }}</p>
+
+    <p>
+        {{ formacao.inicio }} - {{ formacao.fim }}
+    </p>
+
+    <p>{{ formacao.descricao }}</p>
+</div>
+{% endfor %}
+<a href="{% url 'inicio' %}">Voltar ao Início</a>
+</body>
+</html>

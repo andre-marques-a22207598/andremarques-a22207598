@@ -1,0 +1,28 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Owner</title>
+</head>
+<body>
+
+<h1>{{ owner.nome }}</h1>
+<h2>{{ owner.titulo }}</h2>
+
+{% if owner.foto %}
+<img src="{{ owner.foto.url }}" width="200">
+{% endif %}
+
+<p>{{ owner.bio }}</p>
+<p>{{ owner.email }}</p>
+
+<a href="{{ owner.github }}">GitHub</a>
+<a href="{{ owner.linkedin }}">LinkedIn</a>
+
+</body>
+<a href="{% url 'inicio' %}">Voltar ao Início</a>
+</html>

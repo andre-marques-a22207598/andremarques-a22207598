@@ -9,9 +9,13 @@ django.setup()
 from portofolio.models import Tfc
 
 # caminho para o JSON
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-file_path = os.path.join(BASE_DIR, 'data', 'tfcs_2024_2025.json')
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__))
+    )
+)
 
+file_path = os.path.join(BASE_DIR, 'data', 'tfcs_2024_2025.json')
 
 def run():
     with open(file_path, encoding='utf-8') as f:

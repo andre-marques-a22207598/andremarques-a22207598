@@ -1,0 +1,31 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Projetos</title>
+</head>
+<body>
+
+<h1>Projetos</h1>
+
+{% for projeto in projetos %}
+<div>
+    <h2>{{ projeto.titulo }}</h2>
+
+    {% if projeto.imagem %}
+    <img src="{{ projeto.imagem.url }}" width="250">
+    {% endif %}
+
+    <p>{{ projeto.descricao }}</p>
+
+    <a href="{% url 'projeto_detail' projeto.id %}">
+        Ver Projeto
+    </a>
+</div>
+{% endfor %}
+<a href="{% url 'inicio' %}">Voltar ao Início</a>
+</body>
+</html>

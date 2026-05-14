@@ -1,0 +1,27 @@
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>UCs</title>
+</head>
+<body>
+
+<h1>Unidades Curriculares</h1>
+
+{% for uc in ucs %}
+<div>
+    <h2>{{ uc.nome }}</h2>
+
+    <a href="{% url 'uc_detail' uc.id %}">
+        Ver detalhes da UC
+    </a>
+</div>
+{% endfor %}
+
+<a href="{% url 'inicio' %}">Voltar ao Início</a>
+</body>
+</html>

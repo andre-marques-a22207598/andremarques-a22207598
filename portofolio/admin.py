@@ -48,9 +48,9 @@ class DocenteAdmin(admin.ModelAdmin):
 
 @admin.register(UnidadeCurricular)
 class UnidadeCurricularAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'ano', 'semestre', 'ects', 'licenciatura')
+    list_display = ('nome', 'ano', 'semestre', 'ects')
     search_fields = ('nome',)
-    list_filter = ('ano', 'semestre', 'licenciatura')
+    list_filter = ('ano', 'semestre')
 
 @admin.register(Projeto)
 class ProjetoAdmin(admin.ModelAdmin):

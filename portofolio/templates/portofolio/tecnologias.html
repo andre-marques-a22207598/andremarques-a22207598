@@ -1,0 +1,36 @@
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Tecnologias</title>
+</head>
+<body>
+
+<h1>Tecnologias</h1>
+
+{% for tecnologia in tecnologias %}
+<div>
+    <h2>{{ tecnologia.nome }}</h2>
+
+    {% if tecnologia.logo %}
+    <img src="{{ tecnologia.logo.url }}" width="100">
+    {% endif %}
+
+    <p>{{ tecnologia.tipo }}</p>
+
+    <p>{{ tecnologia.descricao }}</p>
+
+    <p>Nível: {{ tecnologia.nivel }}</p>
+
+    <a href="{{ tecnologia.website }}">
+        Website
+    </a>
+</div>
+{% endfor %}
+<a href="{% url 'inicio' %}">Voltar ao Início</a>
+</body>
+</html>
