@@ -11,21 +11,21 @@ class BandaIn(Schema):
 class BandaOut(BandaIn):
     id: int
 
-class MusicoIn(Schema):
-    nome: str
-    idade: int
-    instrumentos: list[int]  # IDs dos instrumentos
-    
-class MusicoOut(MusicoIn):
-    id: int
-    
 class InstrumentoIn(Schema):
     nome: str
     tipo: str
     naipe: str
-
+    
 class InstrumentoOut(InstrumentoIn):
     id: int
+    
+class MusicoIn(Schema):
+    nome: str
+    idade: int
+
+class MusicoOut(MusicoIn):
+    id: int
+    instrumentos: list[InstrumentoOut] 
 
 class ConcertoIn(Schema):
     banda_id: int
@@ -38,6 +38,3 @@ class ConcertoOut(ConcertoIn):
     
 class BandaDetail(BandaOut):
     concertos: list[ConcertoOut]
-
-class ErrorSchema(Schema):
-    detail: str
