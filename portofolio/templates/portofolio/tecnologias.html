@@ -1,36 +1,31 @@
+{% extends "portofolio/base.html" %}
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>Tecnologias</title>
-</head>
-<body>
-
-<h1>Tecnologias</h1>
+<h2>Tecnologias</h2>
 
 {% for tecnologia in tecnologias %}
-<div>
-    <h2>{{ tecnologia.nome }}</h2>
+
+<article>
 
     {% if tecnologia.logo %}
-    <img src="{{ tecnologia.logo.url }}" width="100">
+        <img class="logo" src="{{ tecnologia.logo.url }}" alt="{{ tecnologia.nome }}">
     {% endif %}
 
-    <p>{{ tecnologia.tipo }}</p>
+    <h3>{{ tecnologia.nome }}</h3>
+
+    <p><strong>Tipo:</strong> {{ tecnologia.tipo }}</p>
 
     <p>{{ tecnologia.descricao }}</p>
 
-    <p>Nível: {{ tecnologia.nivel }}</p>
+    <p><strong>Nível:</strong> {{ tecnologia.nivel }}</p>
 
-    <a href="{{ tecnologia.website }}">
+    <a class="btn" href="{{ tecnologia.website }}" target="_blank">
         Website
     </a>
-</div>
+
+</article>
+
 {% endfor %}
-<a href="{% url 'inicio' %}">Voltar ao Início</a>
-</body>
-</html>
+
+{% endblock %}

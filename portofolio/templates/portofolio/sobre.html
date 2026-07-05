@@ -1,16 +1,15 @@
-{% load static %}
+{% extends "portofolio/base.html" %}
 
-<link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>Sobre</title>
-</head>
-<body>
+{% block content %}
 
-<h1>Sobre</h1>
-<p>Página sobre o portfólio.</p>
-<a href="{% url 'inicio' %}">Voltar ao Início</a>
-</body>
-</html>
+<h2>Sobre</h2>
+
+<article>
+
+<p>
+Página sobre o portfólio.
+</p>
+
+</article>
+
+{% endblock %}

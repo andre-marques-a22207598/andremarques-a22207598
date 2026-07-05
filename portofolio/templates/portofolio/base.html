@@ -1,0 +1,40 @@
+<!-- templates/portofolio/base.html -->
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio</title>
+    
+    <!-- link para ficheiro styles.css com regras de estilização -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
+
+</head>
+<body>
+    <header>
+        <h1>Portfólio</h1>
+        <nav>
+            <a href="{% url 'owner_detail' %}">Owner</a>
+            <a href="{% url 'sobre' %}">Sobre</a>
+            <a href="{% url 'formacao_list' %}">Formações</a>
+            <a href="{% url 'uc_list' %}">UCs</a>
+            <a href="{% url 'projeto_list' %}">Projetos</a>
+            <a href="{% url 'tecnologias' %}">Tecnologias</a>
+        </nav>
+    </header>
+
+
+    <main>
+        {% block content %}
+        <!-- Conteúdo dinâmico -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026</p>
+    </footer>
+
+</body>
+</html>

@@ -1,28 +1,32 @@
-{% load static %}
+{% extends "portofolio/base.html" %}
 
-<link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>Owner</title>
-</head>
-<body>
+<section class="owner">
 
-<h1>{{ owner.nome }}</h1>
-<h2>{{ owner.titulo }}</h2>
+    <div class="owner-card">
 
-{% if owner.foto %}
-<img src="{{ owner.foto.url }}" width="200">
-{% endif %}
+        {% if owner.foto %}
+            <img class="owner-photo" src="{{ owner.foto.url }}" alt="{{ owner.nome }}">
+        {% endif %}
 
-<p>{{ owner.bio }}</p>
-<p>{{ owner.email }}</p>
+        <div class="owner-info">
 
-<a href="{{ owner.github }}">GitHub</a>
-<a href="{{ owner.linkedin }}">LinkedIn</a>
+            <h2>{{ owner.nome }}</h2>
 
-</body>
-<a href="{% url 'inicio' %}">Voltar ao Início</a>
-</html>
+            <h3>{{ owner.titulo }}</h3>
+
+            <p>{{ owner.bio }}</p>
+
+            <p><strong>Email:</strong> {{ owner.email }}</p>
+
+            <div class="owner-links">
+                <a href="{{ owner.github }}" target="_blank">GitHub</a>
+                <a href="{{ owner.linkedin }}" target="_blank">LinkedIn</a>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -16,7 +16,7 @@ from .models import (
 
 # 🔹 INÍCIO
 def inicio_view(request):
-    return render(request, 'portofolio/inicio.html')
+    return render(request, 'portofolio/base.html')
 
 
 # 🔹 OWNER

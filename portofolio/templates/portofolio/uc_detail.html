@@ -1,29 +1,25 @@
+{% extends "portofolio/base.html" %}
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>UC</title>
-</head>
-<body>
+<article>
 
-<h1>{{ uc.nome }}</h1>
+<h2>{{ uc.nome }}</h2>
 
 {% if uc.imagem %}
-<img src="{{ uc.imagem.url }}" width="300">
+<img class="project-image" src="{{ uc.imagem.url }}" alt="{{ uc.nome }}">
 {% endif %}
 
 <p>{{ uc.descricao }}</p>
 
-<p>Ano: {{ uc.ano }}</p>
-<p></p>
-<p>Semestre: {{ uc.semestre }}</p>
-<p>ECTS: {{ uc.ects }}</p>
+<p><strong>Ano:</strong> {{ uc.ano }}</p>
 
-<p>Licenciatura: {{ uc.licenciatura.nome }}</p>
-<a href="{% url 'inicio' %}">Voltar ao Início</a>
-</body>
-</html>
+<p><strong>Semestre:</strong> {{ uc.semestre }}</p>
+
+<p><strong>ECTS:</strong> {{ uc.ects }}</p>
+
+<p><strong>Licenciatura:</strong> {{ uc.licenciatura.nome }}</p>
+
+</article>
+
+{% endblock %}

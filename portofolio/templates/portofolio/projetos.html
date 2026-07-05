@@ -1,31 +1,31 @@
-{% load static %}
+{% extends "portofolio/base.html" %}
 
-<link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>Projetos</title>
-</head>
-<body>
+{% block content %}
 
-<h1>Projetos</h1>
+<h2>Projetos</h2>
 
 {% for projeto in projetos %}
-<div>
-    <h2>{{ projeto.titulo }}</h2>
+
+<article>
 
     {% if projeto.imagem %}
-    <img src="{{ projeto.imagem.url }}" width="250">
+        <img class="project-image" src="{{ projeto.imagem.url }}" alt="{{ projeto.titulo }}">
     {% endif %}
+
+    <h3>{{ projeto.titulo }}</h3>
 
     <p>{{ projeto.descricao }}</p>
 
-    <a href="{% url 'projeto_detail' projeto.id %}">
+    <a class="btn" href="{% url 'projeto_detail' projeto.id %}">
         Ver Projeto
     </a>
-</div>
+
+</article>
+
+{% empty %}
+
+<p>Não existem projetos.</p>
+
 {% endfor %}
-<a href="{% url 'inicio' %}">Voltar ao Início</a>
-</body>
-</html>
+
+{% endblock %}

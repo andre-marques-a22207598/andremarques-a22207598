@@ -1,29 +1,29 @@
-{% load static %}
+{% extends "portofolio/base.html" %}
 
-<link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>Formações</title>
-</head>
-<body>
+{% block content %}
 
-<h1>Formações</h1>
+<h2>Formações</h2>
 
 {% for formacao in formacoes %}
-<div>
-    <h2>{{ formacao.titulo }}</h2>
+<article>
 
-    <p>{{ formacao.instituicao }}</p>
+    <header>
+        <h3>{{ formacao.titulo }}</h3>
+        <p>{{ formacao.instituicao }}</p>
+    </header>
 
     <p>
+        <strong>Período:</strong>
         {{ formacao.inicio }} - {{ formacao.fim }}
     </p>
 
     <p>{{ formacao.descricao }}</p>
-</div>
+
+</article>
+{% empty %}
+
+<p>Não existem formações registadas.</p>
+
 {% endfor %}
-<a href="{% url 'inicio' %}">Voltar ao Início</a>
-</body>
-</html>
+
+{% endblock %}

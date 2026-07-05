@@ -1,27 +1,25 @@
+{% extends "portofolio/base.html" %}
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>UCs</title>
-</head>
-<body>
-
-<h1>Unidades Curriculares</h1>
+<h2>Unidades Curriculares</h2>
 
 {% for uc in ucs %}
-<div>
-    <h2>{{ uc.nome }}</h2>
 
-    <a href="{% url 'uc_detail' uc.id %}">
-        Ver detalhes da UC
-    </a>
-</div>
+<article>
+
+<h3>{{ uc.nome }}</h3>
+
+<a class="btn" href="{% url 'uc_detail' uc.id %}">
+    Ver detalhes
+</a>
+
+</article>
+
+{% empty %}
+
+<p>Não existem UCs.</p>
+
 {% endfor %}
 
-<a href="{% url 'inicio' %}">Voltar ao Início</a>
-</body>
-</html>
+{% endblock %}
