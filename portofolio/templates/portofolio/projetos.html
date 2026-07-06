@@ -4,6 +4,11 @@
 
 <h2>Projetos</h2>
 
+    <a href="{% url 'novo_projeto' %}">
+        <button>Novo Projeto</button>
+    </a>
+
+
 {% for projeto in projetos %}
 
 <article>
@@ -14,12 +19,15 @@
 
     <h3>{{ projeto.titulo }}</h3>
 
-    <p>{{ projeto.descricao }}</p>
+    <p>Descrição: {{ projeto.descricao }}</p>
+                
+                <a href="{% url 'edita_projeto' projeto.id %}">
+                    Editar
+                </a>
 
-    <a class="btn" href="{% url 'projeto_detail' projeto.id %}">
-        Ver Projeto
-    </a>
-
+                <a href="{% url 'apaga_projeto' projeto.id %}">
+                    Apagar
+                </a>
 </article>
 
 {% empty %}

@@ -203,3 +203,10 @@ footer{
     font-size:.9rem;
 
 }
+
+.owner-photo {
+    width: 200px;
+    height: 200px;
+    object-fit: cover; /* Mantém a proporção e recorta se necessário */
+    border-radius: 50%; /* Opcional: torna a imagem circular */
+}

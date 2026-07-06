@@ -16,7 +16,7 @@ from .models import Tfc
 # Register your models here.
 @admin.register(Owner)
 class OwnerAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'titulo', 'email')
+    list_display = ('nome', 'email')
 
     def has_add_permission(self, request):
         # só permite 1 perfil
@@ -54,9 +54,9 @@ class UnidadeCurricularAdmin(admin.ModelAdmin):
 
 @admin.register(Projeto)
 class ProjetoAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'data', 'destaque', 'unidade_curricular')
+    list_display = ('titulo', 'unidade_curricular')
     search_fields = ('titulo', 'descricao')
-    list_filter = ('destaque', 'data', 'unidade_curricular')
+    list_filter = ('titulo', 'unidade_curricular')
 
     filter_horizontal = ('tecnologias',)
 

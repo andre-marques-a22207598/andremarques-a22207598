@@ -4,7 +4,12 @@
 
 <h2>Formações</h2>
 
+<a href="{% url 'nova_formacao' %}">
+    <button>Nova Formação</button>
+</a>
+
 {% for formacao in formacoes %}
+
 <article>
 
     <header>
@@ -19,7 +24,16 @@
 
     <p>{{ formacao.descricao }}</p>
 
+    <a class="btn" href="{% url 'edita_formacao' formacao.id %}">
+        Editar
+    </a>
+
+    <a class="btn btn-danger" href="{% url 'apaga_formacao' formacao.id %}">
+        Apagar
+    </a>
+
 </article>
+
 {% empty %}
 
 <p>Não existem formações registadas.</p>

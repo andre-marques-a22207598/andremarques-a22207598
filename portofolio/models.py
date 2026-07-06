@@ -3,7 +3,6 @@ from django.db import models
 
 class Owner(models.Model):
     nome = models.CharField(max_length=100, blank=True, null=True)
-    titulo = models.CharField(max_length=100, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     foto = models.ImageField(upload_to='perfil/',blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
@@ -11,10 +10,14 @@ class Owner(models.Model):
     linkedin = models.URLField(blank=True, null=True)
     cv = models.FileField(upload_to='cv/',blank=True, null=True)
 
+    def __str__(self):
+        return self.nome
 
 class Universidade(models.Model):
     nome = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.nome
 
 class Licenciatura(models.Model):
     nome = models.CharField(max_length=100)
@@ -22,6 +25,8 @@ class Licenciatura(models.Model):
     duracao = models.IntegerField()
     universidade = models.ForeignKey(Universidade, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.nome
 
 class Formacao(models.Model):
     titulo = models.CharField(max_length=100)
@@ -29,8 +34,9 @@ class Formacao(models.Model):
     inicio = models.DateField()
     fim = models.DateField()
     descricao = models.TextField()
-    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.nome
 
 class Docente(models.Model):
     nome = models.CharField(max_length=100)
@@ -39,7 +45,8 @@ class Docente(models.Model):
     codigo = models.IntegerField(unique=True, null=True, blank=True)
     grau = models.CharField(max_length=100, null=True, blank=True)
 
-
+    def __str__(self):
+        return self.nome
 
 class UnidadeCurricular(models.Model):
     codigo = models.IntegerField(unique=True)
@@ -53,6 +60,17 @@ class UnidadeCurricular(models.Model):
     licenciatura = models.ForeignKey(Licenciatura, on_delete=models.CASCADE, null=True, blank=True)
     docentes = models.ManyToManyField(Docente,related_name='ucs')
 
+    def __str__(self):
+        return self.nome
+
+class Competencia(models.Model):
+    nome = models.CharField(max_length=100)
+    nivel = models.CharField(max_length=50)
+    descricao = models.TextField()
+
+    def __str__(self):
+        return self.nome
+
 class Tecnologia(models.Model):
     nome = models.CharField(max_length=100)
     tipo = models.CharField(max_length=50)
@@ -61,6 +79,8 @@ class Tecnologia(models.Model):
     website = models.URLField()
     nivel = models.IntegerField()
 
+    def __str__(self):
+        return self.nome
 
 class Projeto(models.Model):
     titulo = models.CharField(max_length=100)
@@ -68,13 +88,14 @@ class Projeto(models.Model):
     conceitos = models.TextField()
     imagem = models.ImageField(upload_to='projetos/')
     video = models.URLField(blank=True)
-    github = models.URLField()
-    destaque = models.BooleanField(default=False)
-    data = models.DateField()
-    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    github = models.URLField(blank=True)
     unidade_curricular = models.ForeignKey(UnidadeCurricular, on_delete=models.CASCADE)
 
-    tecnologias = models.ManyToManyField(Tecnologia)
+    competencias = models.ManyToManyField(Competencia, blank=True)
+    tecnologias = models.ManyToManyField(Tecnologia, blank=True)
+
+    def __str__(self):
+        return self.titulo    
 
 class Tfc(models.Model):
     titulo = models.CharField(max_length=300, blank=True, null=True)

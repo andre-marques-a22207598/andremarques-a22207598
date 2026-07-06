@@ -4,15 +4,19 @@
 
 <h2>Tecnologias</h2>
 
+<a href="{% url 'nova_tecnologia' %}" ">
+    <button>Nova Tecnologia</button>
+</a>
+
 {% for tecnologia in tecnologias %}
 
 <article>
 
+    <h3>{{ tecnologia.nome }}</h3>
+
     {% if tecnologia.logo %}
         <img class="logo" src="{{ tecnologia.logo.url }}" alt="{{ tecnologia.nome }}">
     {% endif %}
-
-    <h3>{{ tecnologia.nome }}</h3>
 
     <p><strong>Tipo:</strong> {{ tecnologia.tipo }}</p>
 
@@ -20,11 +24,25 @@
 
     <p><strong>Nível:</strong> {{ tecnologia.nivel }}</p>
 
-    <a class="btn" href="{{ tecnologia.website }}" target="_blank">
-        Website
+    {% if tecnologia.website %}
+        <a class="btn" href="{{ tecnologia.website }}" target="_blank">
+            Website
+        </a>
+    {% endif %}
+
+    <a class="btn" href="{% url 'edita_tecnologia' tecnologia.id %}">
+        Editar
+    </a>
+
+    <a class="btn btn-danger" href="{% url 'apaga_tecnologia' tecnologia.id %}">
+        Apagar
     </a>
 
 </article>
+
+{% empty %}
+
+<p>Ainda não existem tecnologias.</p>
 
 {% endfor %}
 
