@@ -1,0 +1,15 @@
+<h2>Login com Link Mágico</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <input type="email" name="email" placeholder="Email" required>
+
+    <button type="submit">
+        Enviar link
+    </button>
+</form>
+
+{% if erro %}
+<p>{{ erro }}</p>
+{% endif %}

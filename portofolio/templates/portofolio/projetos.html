@@ -3,31 +3,32 @@
 {% block content %}
 
 <h2>Projetos</h2>
-
-    <a href="{% url 'novo_projeto' %}">
-        <button>Novo Projeto</button>
-    </a>
-
+{% if is_gestor %}
+<a href="{% url 'novo_projeto' %}">
+    <button>Novo Projeto</button>
+</a>
+{% endif %}
 
 {% for projeto in projetos %}
 
 <article>
 
     {% if projeto.imagem %}
-        <img class="project-image" src="{{ projeto.imagem.url }}" alt="{{ projeto.titulo }}">
+    <img class="project-image" src="{{ projeto.imagem.url }}" alt="{{ projeto.titulo }}">
     {% endif %}
 
     <h3>{{ projeto.titulo }}</h3>
 
     <p>Descrição: {{ projeto.descricao }}</p>
-                
-                <a href="{% url 'edita_projeto' projeto.id %}">
-                    Editar
-                </a>
+    {% if is_gestor %}
+    <a href="{% url 'edita_projeto' projeto.id %}">
+        Editar
+    </a>
 
-                <a href="{% url 'apaga_projeto' projeto.id %}">
-                    Apagar
-                </a>
+    <a href="{% url 'apaga_projeto' projeto.id %}">
+        Apagar
+    </a>
+    {% endif %}
 </article>
 
 {% empty %}

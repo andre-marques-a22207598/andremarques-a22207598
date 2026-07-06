@@ -3,11 +3,11 @@
 {% block content %}
 
 <h2>Tecnologias</h2>
-
+{% if is_gestor %}
 <a href="{% url 'nova_tecnologia' %}" ">
     <button>Nova Tecnologia</button>
 </a>
-
+{% endif %}
 {% for tecnologia in tecnologias %}
 
 <article>
@@ -15,7 +15,7 @@
     <h3>{{ tecnologia.nome }}</h3>
 
     {% if tecnologia.logo %}
-        <img class="logo" src="{{ tecnologia.logo.url }}" alt="{{ tecnologia.nome }}">
+        <img class=" logo" src="{{ tecnologia.logo.url }}" alt="{{ tecnologia.nome }}">
     {% endif %}
 
     <p><strong>Tipo:</strong> {{ tecnologia.tipo }}</p>
@@ -25,11 +25,11 @@
     <p><strong>Nível:</strong> {{ tecnologia.nivel }}</p>
 
     {% if tecnologia.website %}
-        <a class="btn" href="{{ tecnologia.website }}" target="_blank">
-            Website
-        </a>
+    <a class="btn" href="{{ tecnologia.website }}" target="_blank">
+        Website
+    </a>
     {% endif %}
-
+    {% if is_gestor %}
     <a class="btn" href="{% url 'edita_tecnologia' tecnologia.id %}">
         Editar
     </a>
@@ -37,13 +37,13 @@
     <a class="btn btn-danger" href="{% url 'apaga_tecnologia' tecnologia.id %}">
         Apagar
     </a>
+    {% endif %}
+    </article>
 
-</article>
+    {% empty %}
 
-{% empty %}
+    <p>Ainda não existem tecnologias.</p>
 
-<p>Ainda não existem tecnologias.</p>
+    {% endfor %}
 
-{% endfor %}
-
-{% endblock %}
+    {% endblock %}

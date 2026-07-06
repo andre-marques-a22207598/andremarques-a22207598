@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .forms import ProjetoForm, CompetenciaForm, TecnologiaForm, FormacaoForm
 from .models import (
@@ -17,6 +18,11 @@ from .models import (
 # 🔹 INÍCIO
 def inicio_view(request):
     return render(request, 'portofolio/base.html')
+
+def gestor_portofolio(user):
+    return user.is_authenticated and user.groups.filter(
+        name='gestor-portfolio'
+    ).exists()
 
 # 🔹 OWNER
 def owner_detail(request):
@@ -98,9 +104,13 @@ def projetos(request):
 
     return render(request, 'portofolio/projetos.html', {
         'projetos': projetos
+        "is_gestor": gestor_portofolio(request.user),
     })
 
+@login_required
 def edita_projeto_view(request, projeto_id):
+    if not gestor_portofolio(request.user):
+        return HttpResponse("Sem permissão.", status=403)
     projeto = get_object_or_404(Projeto, id=projeto_id)
 
     if request.method == "POST":
@@ -121,29 +131,21 @@ def edita_projeto_view(request, projeto_id):
         },
     )
 
-def projeto_detail(request, id):
-    projeto = get_object_or_404(
-        Projeto.objects.select_related(
-            'unidade_curricular'
-        ).prefetch_related(
-            'tecnologias'
-        ),
-        id=id
-    )
-
-    return render(request, 'portofolio/projeto_detail.html', {
-        'projeto': projeto
-    })
-
-
+@login_required
 def novo_projeto_view(request):
+    if not gestor_portofolio(request.user):
+        return HttpResponse("Sem permissão.", status=403)
+
     form = ProjetoForm(request.POST or None, request.FILES)
     if form.is_valid():
         form.save()
         return redirect('projetos')
     return render(request, 'portofolio/novo_projeto.html', {'form': form})
 
+@login_required
 def apaga_projeto_view(request, projeto_id):
+    if not gestor_portofolio(request.user):
+        return HttpResponse("Sem permissão.", status=403)
     projeto = get_object_or_404(Projeto, id=projeto_id)
     projeto.delete()
     return redirect('projetos')
@@ -155,17 +157,23 @@ def competencias_view(request):
     competencias = Competencia.objects.all()
     return render(request, 'portofolio/competencias.html', {
     'competencias': competencias,
-    #'is_gestor': gestor_portofolio(request.user)
+    "is_gestor": gestor_portofolio(request.user),
     })
 
+@login_required
 def nova_competencia_view(request):
+    if not gestor_portofolio(request.user):
+        return HttpResponse("Sem permissão.", status=403)
     form = CompetenciaForm(request.POST or None, request.FILES)
     if form.is_valid():
         form.save()
         return redirect('competencias')
     return render(request, 'portofolio/nova_competencia.html', {'form': form})
 
+@login_required
 def edita_competencia_view(request, competencia_id):
+    if not gestor_portofolio(request.user):
+        return HttpResponse("Sem permissão.", status=403)
     competencia = get_object_or_404(Competencia, id=competencia_id)
 
     if request.method == "POST":
@@ -190,7 +198,10 @@ def edita_competencia_view(request, competencia_id):
         },
     )
 
+@login_required
 def apaga_competencia_view(request, tecnologia_id):
+    if not gestor_portofolio(request.user):
+        return HttpResponse("Sem permissão.", status=403)
     competencia = get_object_or_404(Competencia, id=tecnologia_id)
     competencia.delete()
     return redirect('competencias')
@@ -201,17 +212,23 @@ def tecnologias_view(request):
     tecnologias = Tecnologia.objects.all()
     return render(request, 'portofolio/tecnologias.html', {
     'tecnologias': tecnologias,
-    #'is_gestor': gestor_portofolio(request.user)
+    "is_gestor": gestor_portofolio(request.user),
     })
 
+@login_required
 def nova_tecnologia_view(request):
+    if not gestor_portofolio(request.user):
+        return HttpResponse("Sem permissão.", status=403)
     form = TecnologiaForm(request.POST or None, request.FILES)
     if form.is_valid():
         form.save()
         return redirect('tecnologias')
     return render(request, 'portofolio/nova_tecnologia.html', {'form': form})
 
+@login_required
 def edita_tecnologia_view(request, tecnologia_id):
+    if not gestor_portofolio(request.user):
+        return HttpResponse("Sem permissão.", status=403)
     tecnologia = get_object_or_404(Tecnologia, id=tecnologia_id)
 
     if request.method == "POST":
@@ -236,7 +253,10 @@ def edita_tecnologia_view(request, tecnologia_id):
         },
     )
 
+@login_required
 def apaga_tecnologia_view(request, tecnologia_id):
+    if not gestor_portofolio(request.user):
+        return HttpResponse("Sem permissão.", status=403)
     tecnologia = get_object_or_404(Tecnologia, id=tecnologia_id)
     tecnologia.delete()
     return redirect('tecnologias')
@@ -248,18 +268,23 @@ def formacoes_view(request):
     formacoes = Formacao.objects.all()
     return render(request, 'portofolio/formacoes.html', {
     'formacoes': formacoes,
-    #'is_gestor': gestor_portofolio(request.user)
+    "is_gestor": gestor_portofolio(request.user),
     })
 
+@login_required
 def nova_formacao_view(request):
+    if not gestor_portofolio(request.user):
+        return HttpResponse("Sem permissão.", status=403)
     form = FormacaoForm(request.POST or None, request.FILES)
     if form.is_valid():
         form.save()
         return redirect('formacoes')
     return render(request, 'portofolio/nova_formacao.html', {'form': form}) 
 
-
+@login_required
 def apaga_formacao_view(request, formacao_id):
+    if not gestor_portofolio(request.user):
+        return HttpResponse("Sem permissão.", status=403)
     formacao = get_object_or_404(Formacao, id=formacao_id)
 
     if request.method == "POST":
@@ -274,8 +299,10 @@ def apaga_formacao_view(request, formacao_id):
         },
     )
 
-
+@login_required
 def edita_formacao_view(request, formacao_id):
+    if not gestor_portofolio(request.user):
+        return HttpResponse("Sem permissão.", status=403)
     formacao = get_object_or_404(Formacao, id=formacao_id)
 
     if request.method == "POST":

@@ -14,4 +14,9 @@ Projeto desenvolvido no âmbito da unidade curricular Programacao Web, com o obj
 - Username: admin
 - Password: admin
 
+## Utilizador gestor
+
+- Username: andre_marques
+- Password: 123465PW2026
+
 By: André Marques (a22207598)

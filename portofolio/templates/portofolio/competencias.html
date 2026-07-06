@@ -3,11 +3,11 @@
 {% block content %}
 
 <h2>Competências</h2>
-
+{% if is_gestor %}
 <a href="{% url 'nova_competencia' %}">
     <button>Nova Competência</button>
 </a>
-
+{% endif %}
 {% for competencia in competencias %}
 
 <article>
@@ -15,7 +15,7 @@
     <h3>{{ competencia.nome }}</h3>
 
     <p>{{ competencia.descricao }}</p>
-
+    {% if is_gestor %}
     <a class="btn" href="{% url 'edita_competencia' competencia.id %}">
         Editar
     </a>
@@ -23,7 +23,7 @@
     <a class="btn btn-danger" href="{% url 'apaga_competencia' competencia.id %}">
         Apagar
     </a>
-
+    {% endif %}
 </article>
 
 {% empty %}

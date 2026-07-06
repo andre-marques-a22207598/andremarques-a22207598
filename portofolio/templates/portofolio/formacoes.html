@@ -3,11 +3,11 @@
 {% block content %}
 
 <h2>Formações</h2>
-
+{% if is_gestor %}
 <a href="{% url 'nova_formacao' %}">
     <button>Nova Formação</button>
 </a>
-
+{% endif %}
 {% for formacao in formacoes %}
 
 <article>
@@ -23,7 +23,7 @@
     </p>
 
     <p>{{ formacao.descricao }}</p>
-
+    {% if is_gestor %}
     <a class="btn" href="{% url 'edita_formacao' formacao.id %}">
         Editar
     </a>
@@ -31,7 +31,7 @@
     <a class="btn btn-danger" href="{% url 'apaga_formacao' formacao.id %}">
         Apagar
     </a>
-
+    {% endif %}
 </article>
 
 {% empty %}
