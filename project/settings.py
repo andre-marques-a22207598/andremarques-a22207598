@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'festivais',
     'portofolio',
     'banda',
+    'artigos',
+    'accounts',
 ]
 
 MIDDLEWARE = [

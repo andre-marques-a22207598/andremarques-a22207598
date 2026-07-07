@@ -1,0 +1,105 @@
+{% extends "portofolio/base.html" %}
+
+{% block content %}
+
+<h1>Artigos</h1>
+
+{% if not user.is_authenticated %}
+
+    <p>
+        <a href="{% url 'login' %}">Login</a>
+        |
+        <a href="{% url 'registo_autores' %}">Registar como Autor</a>
+    </p>
+
+{% elif is_autor %}
+
+    <a href="{% url 'novo_artigo' %}" class="btn-artigo">
+    Novo Artigo
+    </a>
+
+{% endif %}
+
+{% for artigo in artigos %}
+
+<article>
+
+    <h2>{{ artigo.titulo }}</h2>
+
+    {% if artigo.fotografia %}
+        <img class="artigo-foto"
+             src="{{ artigo.fotografia.url }}"
+             alt="{{ artigo.titulo }}">
+    {% endif %}
+
+    <p>{{ artigo.texto }}</p>
+
+    {% if artigo.link_externo %}
+        <p>
+            <a href="{{ artigo.link_externo }}" target="_blank">
+                Link Externo
+            </a>
+        </p>
+    {% endif %}
+
+    <p>
+        <strong>Autor:</strong> {{ artigo.autor.username }}
+    </p>
+
+    <p>
+        <strong>Likes:</strong> {{ artigo.total_likes }}
+    </p>
+
+    <a href="{% url 'like_artigo' artigo.id %}">
+        Gostar
+    </a>
+
+    {% if request.user == artigo.autor %}
+        |
+        <a href="{% url 'edita_artigo' artigo.id %}">
+            Editar
+        </a>
+    {% endif %}
+
+    <hr>
+
+    <h3 class="comentarios">Comentários</h3>
+
+    {% for comentario in artigo.comentarios.all %}
+
+        <div class="comentario">
+
+            <strong>{{ comentario.autor.username }}</strong>
+
+            <p>{{ comentario.texto }}</p>
+
+        </div>
+
+    {% empty %}
+
+        <p>Sem comentários.</p>
+
+    {% endfor %}
+
+    {% if request.user.is_authenticated %}
+
+        <form method="POST"
+              action="{% url 'comentario' artigo.id %}">
+
+            {% csrf_token %}
+
+            {{ comentario_form.as_p }}
+
+            <button type="submit">
+                Comentar
+            </button>
+
+        </form>
+
+    {% endif %}
+
+</article>
+
+{% endfor %}
+
+{% endblock %}

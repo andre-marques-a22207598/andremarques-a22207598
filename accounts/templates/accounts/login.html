@@ -1,20 +1,26 @@
+{% extends "portofolio/base.html" %}
+
+{% block content %}
+
 <h2>Login</h2>
 
 <form method="POST">
     {% csrf_token %}
 
     <input type="text" name="username" placeholder="Username">
+
     <br><br>
 
     <input type="password" name="password" placeholder="Password">
+
     <br><br>
 
     <button type="submit">Entrar</button>
 </form>
 
-<p style="color:red;">
-    {{ erro }}
-</p>
+{% if erro %}
+<p style="color:red;">{{ erro }}</p>
+{% endif %}
 
 <br>
 
@@ -27,3 +33,5 @@
 <a href="{% url 'registo' %}">
     Criar conta
 </a>
+
+{% endblock %}

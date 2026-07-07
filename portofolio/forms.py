@@ -1,5 +1,12 @@
 from django import forms
 from .models import Projeto, Tecnologia, Competencia, Formacao
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+class RegistoForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2']
 
 class ProjetoForm(forms.ModelForm):
     class Meta:

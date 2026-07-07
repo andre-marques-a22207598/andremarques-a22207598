@@ -1,3 +1,7 @@
+{% extends "portofolio/base.html" %}
+
+{% block content %}
+
 <h2>Login com Link Mágico</h2>
 
 <form method="post">
@@ -13,3 +17,5 @@
 {% if erro %}
 <p>{{ erro }}</p>
 {% endif %}
+
+{% endblock %}

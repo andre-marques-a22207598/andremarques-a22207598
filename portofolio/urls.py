@@ -24,7 +24,6 @@ urlpatterns = [
 
     #Projetos
     path('projetos/', views.projetos, name='projetos'),
-    path('projetos/<int:id>/', views.projeto_detail, name='projeto_detail'),
     path('projeto/novo/', views.novo_projeto_view, name='novo_projeto'),
     path('projeto/<int:projeto_id>/edita/', views.edita_projeto_view, name='edita_projeto'),
     path('projeto/<int:projeto_id>/apaga/', views.apaga_projeto_view, name='apaga_projeto'),
@@ -40,5 +39,4 @@ urlpatterns = [
     path('competencia/novo/', views.nova_competencia_view, name='nova_competencia'),
     path('competencia/<int:competencia_id>/edita/', views.edita_competencia_view, name='edita_competencia'),
     path('competencia/<int:competencia_id>/apaga/', views.apaga_competencia_view, name='apaga_competencia'),
-
 ]

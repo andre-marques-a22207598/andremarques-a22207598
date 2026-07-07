@@ -2,16 +2,18 @@
 
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfólio</title>
-    
+
     <!-- link para ficheiro styles.css com regras de estilização -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'portofolio/style.css' %}">
 
 </head>
+
 <body>
     <header>
         <h1>Portfólio</h1>
@@ -23,6 +25,28 @@
             <a href="{% url 'projetos' %}">Projetos</a>
             <a href="{% url 'tecnologias' %}">Tecnologias</a>
             <a href="{% url 'competencias' %}">Competências</a>
+            <a href="{% url 'artigos' %}">Artigos</a>
+
+            {% if user.is_authenticated %}
+
+            <span>Olá, {{ user.username }}</span>
+
+            <a href="{% url 'logout' %}">
+                Logout
+            </a>
+
+            {% else %}
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+            <a href="{% url 'registo' %}">
+                Registar
+            </a>
+
+            {% endif %}
+
         </nav>
     </header>
 
@@ -38,4 +62,5 @@
     </footer>
 
 </body>
+
 </html>

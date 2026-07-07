@@ -63,7 +63,7 @@ def magic_login_confirm(request, uidb64, token):
 
     return render(request, "accounts/login_invalido.html")
 
-def login_view(request):
+def login_view(request, autor=False):
 
     erro = ""
 
@@ -72,41 +72,48 @@ def login_view(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-        user = authenticate(request,
-                            username=username,
-                            password=password)
+        user = authenticate(
+            request,
+            username=username,
+            password=password
+        )
 
         if user is not None:
-            login(request, user)
-            return redirect('projetos')
 
+            login(request, user)
+
+            if user.groups.filter(name="autores").exists():
+                return redirect("artigos")
+            else:
+                return redirect("projetos")
         else:
             erro = "Utilizador ou password inválidos"
 
-    return render(request, 'accounts/login.html', {
-        'erro': erro
+    return render(request, "accounts/login.html", {
+        "erro": erro
     })
-
 
 def logout_view(request):
     logout(request)
     return redirect('login')
 
 
-def registo_view(request):
-
+def registo_view(request, autor=False):
     form = RegistoForm(request.POST or None)
 
     if form.is_valid():
-
         user = form.save()
 
-        grupo = Group.objects.get(name='autores')
+        if autor:
+            grupo = Group.objects.get(name="autores")
+            user.groups.add(grupo)
+            return redirect("login_autores")
+        else:
+            return redirect("login")    
 
-        user.groups.add(grupo)
-
-        return redirect('login')
-
-    return render(request, 'accounts/registo.html', {
-        'form': form
+    return render(request, "accounts/registo.html", {
+        "form": form,
     })
+
+def registo_autores_view(request):
+    return registo_view(request, autor=True)

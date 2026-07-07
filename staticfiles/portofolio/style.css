@@ -210,3 +210,84 @@ footer{
     object-fit: cover; /* Mantém a proporção e recorta se necessário */
     border-radius: 50%; /* Opcional: torna a imagem circular */
 }
+
+/* ARTIGOS */
+
+.artigo-foto {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    display: block;
+    margin: 20px 0;
+}
+
+.comentario {
+    background: #f8fafc;
+    padding: 12px;
+    margin: 12px 0;
+    border-left: 4px solid #2563eb;
+    border-radius: 8px;
+}
+
+form textarea {
+    width: 100%;
+    max-width: 600px;
+    height: 120px;
+    resize: vertical;
+}
+
+form input,
+form select {
+    width: 100%;
+    max-width: 600px;
+}
+
+.comentarios {
+    margin-top: 25px;
+}
+
+.comentario {
+    background: #f8fafc;
+    border-left: 4px solid #2563eb;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+form textarea {
+    width: 100%;
+    max-width: 600px;
+    height: 120px;
+    resize: vertical;
+}
+
+form input[type="text"],
+form input[type="url"],
+form input[type="email"],
+form input[type="password"] {
+    width: 100%;
+    max-width: 600px;
+}
+
+.comentarios {
+    margin-top: 8px;
+}
+
+.btn-artigo {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    padding: 8px 20px;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: .3s;
+    margin-bottom: 20px;
+}
+
+.btn-artigo:hover {
+    background: #1d4ed8;
+    color: white;
+    transform: translateY(-2px);
+}

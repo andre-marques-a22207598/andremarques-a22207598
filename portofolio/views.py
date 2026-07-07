@@ -1,40 +1,58 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from .forms import ProjetoForm, CompetenciaForm, TecnologiaForm, FormacaoForm
-from .models import (
-    Owner,
-    Universidade,
-    Licenciatura,
-    Formacao,
-    Docente,
-    UnidadeCurricular,
-    Projeto,
-    Tecnologia,
-    Competencia,
-    MakingOf
+from django.shortcuts import get_object_or_404, redirect, render
+
+
+# Forms
+from .forms import (
+    CompetenciaForm,
+    FormacaoForm,
+    ProjetoForm,
+    RegistoForm,
+    TecnologiaForm,
 )
 
-# 🔹 INÍCIO
-def inicio_view(request):
-    return render(request, 'portofolio/base.html')
+# Models
+from .models import (
+    Competencia,
+    Docente,
+    Formacao,
+    Licenciatura,
+    MakingOf,
+    Owner,
+    Projeto,
+    Tecnologia,
+    Universidade,
+    UnidadeCurricular,
+)
+
+# ======================================================
+# PERMISSÕES
+# ======================================================
 
 def gestor_portofolio(user):
     return user.is_authenticated and user.groups.filter(
-        name='gestor-portfolio'
+        name='gestor-portofolio'
     ).exists()
 
-# 🔹 OWNER
+
+# ======================================================
+# PÁGINAS
+# ======================================================
+
+
+def inicio_view(request):
+    return render(request, 'portofolio/base.html')
+
 def owner_detail(request):
     owner = Owner.objects.first()
 
     return render(request, 'portofolio/owner.html', {'owner': owner})
 
-# 🔹 SOBRE
 def sobre_view(request):
     return render(request, 'portofolio/sobre.html')
 
-# 🔹 LICENCIATURA
 def licenciatura_detail(request):
     licenciatura = Licenciatura.objects.select_related(
         'universidade'
@@ -44,7 +62,12 @@ def licenciatura_detail(request):
         'licenciatura': licenciatura
     })
 
-# 🔹 DOCENTES
+
+# ======================================================
+# DOCENTES
+# ======================================================
+
+
 def docente_list(request):
     docentes = Docente.objects.prefetch_related(
         'ucs'
@@ -53,7 +76,6 @@ def docente_list(request):
     return render(request, 'portofolio/docentes.html', {
         'docentes': docentes
     })
-
 
 def docente_detail(request, id):
     docente = get_object_or_404(
@@ -66,7 +88,11 @@ def docente_detail(request, id):
     })
 
 
-# 🔹 UCs
+# ======================================================
+# UCs
+# ======================================================
+
+
 def uc_list(request):
     ucs = UnidadeCurricular.objects.select_related(
         'licenciatura'
@@ -94,7 +120,11 @@ def uc_detail(request, id):
     })
 
 
-# 🔹 PROJETOS
+# ======================================================
+# PROJETOS
+# ======================================================
+
+
 def projetos(request):
     projetos = Projeto.objects.select_related(
         'unidade_curricular'
@@ -103,8 +133,8 @@ def projetos(request):
     ).all()
 
     return render(request, 'portofolio/projetos.html', {
-        'projetos': projetos
-        "is_gestor": gestor_portofolio(request.user),
+        'projetos': projetos,
+        'is_gestor': gestor_portofolio(request.user),
     })
 
 @login_required
@@ -151,7 +181,9 @@ def apaga_projeto_view(request, projeto_id):
     return redirect('projetos')
 
 
-# 🔹 Competencias
+# ======================================================
+# COMPETENCIAS
+# ======================================================
 
 def competencias_view(request):
     competencias = Competencia.objects.all()
@@ -199,14 +231,18 @@ def edita_competencia_view(request, competencia_id):
     )
 
 @login_required
-def apaga_competencia_view(request, tecnologia_id):
+def apaga_competencia_view(request, competencia_id):
     if not gestor_portofolio(request.user):
         return HttpResponse("Sem permissão.", status=403)
-    competencia = get_object_or_404(Competencia, id=tecnologia_id)
+    competencia = get_object_or_404(Competencia, id=competencia_id)
     competencia.delete()
     return redirect('competencias')
 
-# 🔹 TECNOLOGIAS
+
+# ======================================================
+# TECNOLOGIAS
+# ======================================================
+
 
 def tecnologias_view(request):
     tecnologias = Tecnologia.objects.all()
@@ -262,7 +298,10 @@ def apaga_tecnologia_view(request, tecnologia_id):
     return redirect('tecnologias')
 
 
-# 🔹 Formações
+# ======================================================
+# FORMAÇÕES
+# ======================================================
+
 
 def formacoes_view(request):
     formacoes = Formacao.objects.all()
