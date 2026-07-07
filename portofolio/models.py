@@ -133,6 +133,8 @@ class MakingOf(models.Model):
     correcoes = models.TextField(blank=True, null=True)
 
     justificacao_modelacao = models.TextField(blank=True, null=True)
+    
+    imagem = models.ImageField(upload_to='making-of/',blank=True, null=True)
 
     uso_ia = models.TextField(blank=True, null=True)
 
