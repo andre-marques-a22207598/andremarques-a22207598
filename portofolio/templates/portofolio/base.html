@@ -16,39 +16,36 @@
 
 <body>
     <header>
-        <h1>Portfólio</h1>
-        <nav>
-            <a href="{% url 'owner_detail' %}">Owner</a>
-            <a href="{% url 'sobre' %}">Sobre</a>
-            <a href="{% url 'formacoes' %}">Formações</a>
-            <a href="{% url 'uc_list' %}">UCs</a>
-            <a href="{% url 'projetos' %}">Projetos</a>
-            <a href="{% url 'tecnologias' %}">Tecnologias</a>
-            <a href="{% url 'competencias' %}">Competências</a>
-            <a href="{% url 'artigos' %}">Artigos</a>
+    <h1>
+        <span>Portfólio</span>
+        <span class="hamburger">&#9776;</span>
+    </h1>
 
-            {% if user.is_authenticated %}
+    <nav>
+        <a href="{% url 'owner_detail' %}">Owner</a>
+        <a href="{% url 'sobre' %}">Sobre</a>
+        <a href="{% url 'formacoes' %}">Formações</a>
+        <a href="{% url 'uc_list' %}">UCs</a>
+        <a href="{% url 'projetos' %}">Projetos</a>
+        <a href="{% url 'tecnologias' %}">Tecnologias</a>
+        <a href="{% url 'competencias' %}">Competências</a>
+        <a href="{% url 'artigos' %}">Artigos</a>
+        <a href="{% url 'bandas' %}">API Bandas</a>
+
+        {% if user.is_authenticated %}
 
             <span>Olá, {{ user.username }}</span>
 
-            <a href="{% url 'logout' %}">
-                Logout
-            </a>
+            <a href="{% url 'logout' %}">Logout</a>
 
-            {% else %}
+        {% else %}
 
-            <a href="{% url 'login' %}">
-                Login
-            </a>
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'registo' %}">Registar</a>
 
-            <a href="{% url 'registo' %}">
-                Registar
-            </a>
-
-            {% endif %}
-
-        </nav>
-    </header>
+        {% endif %}
+    </nav>
+</header>
 
 
     <main>
@@ -60,7 +57,14 @@
     <footer>
         <p>&copy; 2026</p>
     </footer>
+<script>
+const menu = document.querySelector("nav");
+const botao = document.querySelector(".hamburger");
 
+botao.addEventListener("click", () => {
+    menu.classList.toggle("mostrar");
+});
+</script>
 </body>
 
 </html>
